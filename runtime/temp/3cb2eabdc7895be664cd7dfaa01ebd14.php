@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:79:"D:\phpstudy_pro\WWW\fastadmin\public/../application/admin\view\prolay\edit.html";i:1609207777;s:72:"D:\phpstudy_pro\WWW\fastadmin\application\admin\view\layout\default.html";i:1602168705;s:69:"D:\phpstudy_pro\WWW\fastadmin\application\admin\view\common\meta.html";i:1602168705;s:71:"D:\phpstudy_pro\WWW\fastadmin\application\admin\view\common\script.html";i:1602168705;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:79:"D:\phpstudy_pro\WWW\fastadmin\public/../application/admin\view\prolay\edit.html";i:1609300746;s:72:"D:\phpstudy_pro\WWW\fastadmin\application\admin\view\layout\default.html";i:1602168705;s:69:"D:\phpstudy_pro\WWW\fastadmin\application\admin\view\common\meta.html";i:1602168705;s:71:"D:\phpstudy_pro\WWW\fastadmin\application\admin\view\common\script.html";i:1602168705;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -59,19 +59,23 @@
                             <?php endif; ?>
                             <div class="content">
                                 <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
-
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Category'); ?>:</label>
+        <label class="control-label col-xs-12 col-sm-2">分类</label>
         <div class="col-xs-12 col-sm-8">
-                        
-            <select  id="c-category" class="form-control selectpicker" name="row[category]">
-                <?php if(is_array($categoryList) || $categoryList instanceof \think\Collection || $categoryList instanceof \think\Paginator): if( count($categoryList)==0 ) : echo "" ;else: foreach($categoryList as $key=>$vo): ?>
-                    <option value="<?php echo $key; ?>" <?php if(in_array(($key), is_array($row['category'])?$row['category']:explode(',',$row['category']))): ?>selected<?php endif; ?>><?php echo $vo; ?></option>
+            <select name="row[category]" class="form-control selectpicker" id="c-category">
+                <option value="">请选择分类</option>
+                <?php if(is_array($arr) || $arr instanceof \think\Collection || $arr instanceof \think\Paginator): $i = 0; $__LIST__ = $arr;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                <option value="<?php echo $vo['id']; ?>" <?php if($vo['level'] == 0): ?> disabled="" style="color: red"<?php endif; if($vo['id'] == $row['category']): ?> selected<?php endif; ?>>
+                <?php if($vo['level'] == 0): ?><span>├</span>
+                <?php else: ?><span>&nbsp;&nbsp;└</span>
+                <?php endif; ?>
+                <?php echo $vo['cate_name']; ?></option>
                 <?php endforeach; endif; else: echo "" ;endif; ?>
             </select>
-
         </div>
     </div>
+
+
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Title'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
